@@ -1,21 +1,17 @@
 import React from 'react';
 import './App.css';
+import { Route } from 'react-router-dom';
+import FriendsList from './components/FriendsList'
+import LoginForm from './components/LoginForm'
+import AuthCheck from './components/Authentication/AuthCheck'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Route path="/" render={props => <AuthCheck {...props} />} />
+        <Route path="/login" render={props =>  <LoginForm {...props} />} />
+        <Route path="/friends" render={props =>  <FriendsList {...props} />} />
       </header>
     </div>
   );
