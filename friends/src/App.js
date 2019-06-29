@@ -5,6 +5,7 @@ import FriendsList from './views/FriendsList'
 import LoginForm from './views/LoginForm'
 import PrivateRoute from './components/Authentication/PrivateRoute'
 
+
 function App() {
   return (
     <div className="App">
