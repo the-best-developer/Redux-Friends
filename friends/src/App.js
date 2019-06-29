@@ -1,17 +1,17 @@
 import React from 'react';
 import './App.css';
 import { Route } from 'react-router-dom';
-import FriendsList from './components/FriendsList'
-import LoginForm from './components/LoginForm'
-import AuthCheck from './components/Authentication/AuthCheck'
+import FriendsList from './views/FriendsList'
+import LoginForm from './views/LoginForm'
+import PrivateRoute from './components/Authentication/PrivateRoute'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Route path="/" render={props => <AuthCheck {...props} />} />
+        <Route exact path="/" render={props => <LoginForm {...props} />} />
         <Route path="/login" render={props =>  <LoginForm {...props} />} />
-        <Route path="/friends" render={props =>  <FriendsList {...props} />} />
+        <PrivateRoute path="/friends" component={FriendsList} />
       </header>
     </div>
   );

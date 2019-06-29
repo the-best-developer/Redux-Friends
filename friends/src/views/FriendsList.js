@@ -10,6 +10,7 @@ class FriendsList extends React.Component {
     componentDidMount() {
         this.props.getFriends();
     }
+    
     render() {
     return (
         <div>

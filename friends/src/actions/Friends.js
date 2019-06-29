@@ -9,24 +9,21 @@ export const FRIENDS_SUCCESS = 'FRIENDS_SUCCESS';
 export const FRIENDS_FAIL = 'FRIENDS_FAIL';
 
 export const submitLogin = (user, pass, history) => dispatch => {
-    
     dispatch({type: LOGIN_SUBMIT, payload: true});
-    AuthAxios().post('http://localhost:5000/api/login', (
-        {
-            username: user,
-            password: pass
-        }
-    ))
-    .then(({data}) => {
-        setTimeout(() => {
-            history.push(`/friends`);
-        }, 1000);
-        dispatch({type: LOGIN_SUCCESS, payload: data.payload});
-    })
-    .catch(err => {
-        dispatch({type: LOGIN_FAIL, payload: err});
-      console.log(err);
-    });
+    return AuthAxios().post('http://localhost:5000/api/login', (
+            {
+                username: user,
+                password: pass
+            }
+        ))
+        .then(({data}) => {
+            dispatch({type: LOGIN_SUCCESS, payload: data.payload});
+        })
+        .catch(err => {
+            dispatch({type: LOGIN_FAIL, payload: err});
+        console.log(err);
+        })
+    
   };
 
   const getFriends = () => dispatch => {

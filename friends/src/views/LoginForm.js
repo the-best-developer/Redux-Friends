@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { submitLogin } from '../actions/Friends.js'
+import Spinner from 'react-spinner-material';
+import { Redirect } from 'react-router-dom';
+import { withRouter } from "react-router";
 
 class LoginForm extends React.Component {
 
@@ -18,9 +21,20 @@ class LoginForm extends React.Component {
         this.setState({[target]: event.target.value});
     }
 
+    toFriends() {
+      this.props.history.push('/friends')
+    }
+    
+
     render() {
+      const key = localStorage.getItem('loginKey');
+      console.log(this.props, key)
+      if(key) {
+        //return  <Redirect to="/friends" />
+      }
         return (
             <div>
+              <button onClick={() => this.toFriends()}>????</button>
               <form onSubmit={(event) => {
                 event.preventDefault()
                 this.props.submitLogin(this.state.username, this.state.password, this.props.history)
@@ -30,10 +44,20 @@ class LoginForm extends React.Component {
                 <input type="text" placeholder="password" onChange={(e) => this.textChangeHandler(e,"password")} value={this.state.password} />
                 <button type="submit">Login</button>
               </form>
-              {this.props.loginError.error}
+              {(this.props.loggingIn) && <Spinner size={30} spinnerColor={"#999"} spinnerWidth={5} visible={true} />}
+              {this.props.loginError}
             </div>
         );
     }
 }
 
-export default connect(((s) => ({loginError: s.loginError})), { submitLogin })(LoginForm);
+const mapStateToProps = (state) => {
+  return {
+    loginError: state.loginError,
+    loggingIn: state.loggingIn,
+    loggedIn: state.loggedIn
+  };
+};
+const LoginFormWithRouter = withRouter(LoginForm);
+export default connect(mapStateToProps, { submitLogin })(LoginFormWithRouter);
+
