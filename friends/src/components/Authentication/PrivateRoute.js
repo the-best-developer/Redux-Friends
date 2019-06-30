@@ -1,18 +1,16 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = (props) => {
     const key = localStorage.getItem('loginKey');
-    console.log(key)
-    return (
-        <Route {...rest} render={props =>
-            (key)
-            ?
-                (<Component {...props} />)
-            :
-                (<Redirect push={true} to={"/login"} />)
-        }/>
-    )
+    
+    if(key){
+        return <props.component {...props} />
+    }
+    else {
+        return <Redirect push={true} to={"/login"} />
+    }
+
   };
 
   export default PrivateRoute;

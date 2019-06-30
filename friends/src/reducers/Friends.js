@@ -21,14 +21,11 @@ const friendsReducer = (state = initialState, action) => {
         return Object.assign({}, state, {loggingIn: true});
 
     case LOGIN_SUCCESS:
-        localStorage.setItem('loginKey', action.payload);
         return Object.assign({}, state, {loggingIn: false, loggedIn: true});
 
     case LOGIN_FAIL:
-        //Logout when login fails
         const errorReply = (typeof action.payload.response != "undefined") ? (action.payload.response.data.error) : (action.payload.message);
-        localStorage.setItem('loginKey', "");
-        return Object.assign({}, state, {loginError: errorReply, loggingIn: false});
+        return Object.assign({}, state, {loginError: errorReply, loggingIn: false, loggedIn: false});
     
     case FRIENDS_FETCHING:
         return Object.assign({}, state, {fetchingFriends: true});

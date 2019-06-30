@@ -8,8 +8,9 @@ import friendsReducer from './reducers/Friends'
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { BrowserRouter as Router } from "react-router-dom";
+import setLoginKey from "./middleware/setLoginKey";
 
-const store = createStore(friendsReducer, applyMiddleware(thunk, logger));
+const store = createStore(friendsReducer, applyMiddleware(thunk, setLoginKey));
 
 ReactDOM.render(
     <Provider store={store}>

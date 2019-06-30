@@ -12,7 +12,7 @@ function App() {
       <header className="App-header">
         <Route exact path="/" render={props => <LoginForm {...props} />} />
         <Route path="/login" render={props =>  <LoginForm {...props} />} />
-        <PrivateRoute path="/friends" component={FriendsList} />
+        <Route path="/friends" render={props => <PrivateRoute component={FriendsList} {...props} /> }/>
       </header>
     </div>
   );
